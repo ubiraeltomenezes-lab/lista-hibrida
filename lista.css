@@ -1,0 +1,284 @@
+ :root {
+            --primary: #1d3557;
+            --secondary: #e63946;
+            --green: #22c55e;
+            --text: #333;
+            --bg: #f0f2f5;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg);
+            margin: 0;
+            padding-top: 260px;
+            color: var(--text);
+        }
+
+        .topo-fixo {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        #app-header {
+            background: var(--primary);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        #contador-status {
+            background: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .filtros-status {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .btn-f {
+            padding: 6px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            background: white;
+            cursor: pointer;
+        }
+
+        .btn-f.ativo-filtro {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .menu-semana {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            padding: 10px;
+        }
+
+        .btn-dia {
+            padding: 10px 2px;
+            border: none;
+            border-radius: 6px;
+            background: #e2e8f0;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            height: 35px;
+        }
+
+        .btn-dia.ativo {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-total {
+            background: #1e293b !important;
+            color: white;
+        }
+
+        .busca-container {
+            background: var(--bg);
+            padding: 10px 15px;
+        }
+
+        #campo-busca {
+            width: 100%;
+            max-width: 450px;
+            display: block;
+            margin: auto;
+            padding: 12px 18px;
+            border: 2px solid #cbd5e1;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .container {
+            padding: 15px;
+            max-width: 500px;
+            margin: auto;
+            min-height: 400px;
+        }
+
+        .categoria-label {
+            background: #cbd5e1;
+            color: #1e293b;
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 900;
+            margin: 15px 0 5px 0;
+            text-transform: uppercase;
+        }
+
+        .item-compra {
+            background: white;
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            border: 4px solid transparent;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .planejado {
+            border-color: var(--secondary) !important;
+            background: #fff5f5;
+        }
+
+        .comprado {
+            border-color: var(--green) !important;
+            background: #f0fdf4;
+        }
+
+        .linha {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nome-edit {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-weight: bold;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            outline: none;
+            padding: 5px;
+            color: #1e293b;
+        }
+
+        .preco-edit {
+            width: 75px;
+            padding: 6px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        .btn-qtd {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-status {
+            width: 25px;
+            height: 32px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        /* Botão Flutuante */
+        .fab-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 2000;
+        }
+
+        .fab-main {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #1e293b;
+            border: none;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+        }
+
+        .fab-menu {
+            display: none;
+            flex-direction: column-reverse;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .fab-menu.show {
+            display: flex;
+        }
+
+        .fab-item {
+            padding: 14px 22px;
+            border-radius: 30px;
+            border: none;
+            background: white;
+            color: var(--primary);
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        #painel-total {
+            display: none;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .total-geral-final {
+            font-size: 1.6em;
+            color: var(--secondary);
+            text-align: center;
+            margin: 20px 0;
+            font-weight: 900;
+            background: #fff1f2;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .linha-rel {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 13px;
+        }
+
+        .titulo-secao {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 5px;
+            margin: 20px 0 10px 0;
+            color: var(--primary);
+            font-size: 0.9em;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
