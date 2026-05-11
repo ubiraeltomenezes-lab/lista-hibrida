@@ -19,11 +19,10 @@
         </div>
         <div class="filtros-status">
             <button class="btn-f ativo-filtro" onclick="filtrarStatus('todos', this)">Todos</button>
-            <button class="btn-f" onclick="filtrarStatus('falta', this)"
-                style="color:var(--secondary)">Faltando</button>
+            <button class="btn-f" onclick="filtrarStatus('falta', this)" style="color:var(--secondary)">Faltando</button>
             <button class="btn-f" onclick="filtrarStatus('ok', this)" style="color:var(--green)">OK</button>
         </div>
-        <div class="menu-semana" id="botoes-semana">
+        <div class="menu-semana">
             <button class="btn-dia ativo" id="btn-seg" onclick="mudarDia('SEG', this)">Seg</button>
             <button class="btn-dia" onclick="mudarDia('TER', this)">Ter</button>
             <button class="btn-dia" onclick="mudarDia('QUA', this)">Qua</button>
@@ -31,9 +30,10 @@
             <button class="btn-dia" onclick="mudarDia('SEX', this)">Sex</button>
             <button class="btn-dia" onclick="mudarDia('SAB', this)">Sab</button>
             <button class="btn-dia" onclick="mudarDia('DOM', this)">Dom</button>
-            <button class="btn-dia btn-total" onclick="mostrarRelatorio(this)">TOTAL</button>
+            <button class="btn-dia" style="background:#1e293b; color:white" onclick="mostrarRelatorio(this)">TOTAL</button>
         </div>
-        <div class="busca-container" id="box-busca">
+        <button class="btn-add-item" onclick="adicionarNovoItem()">+ Adicionar Nova Mercadoria</button>
+        <div class="busca-container">
             <input type="text" id="campo-busca" placeholder="🔍 Buscar item..." onkeyup="filtrarItens()">
         </div>
     </div>
@@ -42,25 +42,20 @@
         <div id="lista-corpo"></div>
         <div id="painel-total">
             <div id="relatorio-financeiro"></div>
-            <div id="relatorio-itens"></div>
-            <div class="total-geral-final">FECHAMENTO:<br>R$ <span id="soma-semana">0,00</span></div>
-            <button onclick="finalizarSemana()"
-                style="width:100%; padding:18px; background:var(--primary); color:white; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">Limpar
-                Dados da Lista</button>
+            <h3 style="text-align:center; color:var(--secondary); background:#fff1f2; padding:15px; border-radius:10px;">
+                FECHAMENTO SEMANA:<br>R$ <span id="soma-semana">0,00</span>
+            </h3>
+            <button onclick="finalizarSemana()" style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Limpar e Iniciar Nova Semana</button>
         </div>
     </div>
 
     <div class="fab-container">
         <div class="fab-menu" id="fabMenu">
-            <button class="fab-item" onclick="trocarApp('CASA')">🏠 Compras Casa</button>
             <button class="fab-item" onclick="trocarApp('BEBIDAS')">🍺 Lista Bebidas</button>
             <button class="fab-item" onclick="trocarApp('PIZZARIA')">🍕 Pizzaria Mondialle</button>
         </div>
         <button class="fab-main" onclick="document.getElementById('fabMenu').classList.toggle('show')">🔄</button>
     </div>
-    <button onclick="adicionarNovoItem()" style="background: var(--green); color: white; border: none; padding: 10px; border-radius: 5px; margin-bottom: 10px; cursor: pointer;">
-    + Adicionar Novo Item
-</button>
 <script src="js/lista.js"></script>
 </body>
 
