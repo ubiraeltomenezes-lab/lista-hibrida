@@ -99,7 +99,7 @@
         }
 
         .busca-container { padding: 10px 15px; background: white; }
-        #campo-busca { width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 25px; outline: none; box-sizing: border-box; }
+        #campo-busca { width: 100%; padding: 8px; border: 2px solid #cbd5e1; border-radius: 25px; outline: none; box-sizing: border-box; }
 
         .container { padding: 15px; max-width: 500px; margin: auto; }
 

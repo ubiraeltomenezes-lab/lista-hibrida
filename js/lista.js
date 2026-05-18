@@ -1,4 +1,4 @@
- const BASES = {
+const BASES = {
         PIZZARIA: [
             { n: "Calabresa", p: 120 }, { n: "Muçarela", p: 150 }, { n: "Presunto", p: 55 },
             { n: "Catupiry", p: 40 }, { n: "Frango", p: 110 }, { n: "Farinha", p: 17 },
@@ -57,6 +57,10 @@
         db[diaAtual].forEach((item, i) => {
             const div = document.createElement('div');
             div.className = `item-compra ${item.estado === 1 ? 'planejado' : (item.estado === 2 ? 'comprado' : '')}`;
+            
+            // Adicionado o atributo data-estado para o filtro funcionar de forma segura
+            div.setAttribute('data-estado', item.estado);
+            
             div.innerHTML = `
                 <div class="linha">
                     <button class="btn-status" style="background: ${item.estado === 1 ? 'var(--secondary)' : (item.estado === 2 ? 'var(--green)' : '#eee')}" onclick="mudarEstado(${i})"></button>
@@ -134,11 +138,19 @@
     function filtrarStatus(tipo, btn) {
         document.querySelectorAll('.btn-f').forEach(b => b.classList.remove('ativo-filtro'));
         btn.classList.add('ativo-filtro');
+        
         document.querySelectorAll('.item-compra').forEach(item => {
-            let est = item.querySelector('.btn-status').style.backgroundColor;
-            if (tipo === 'todos') item.style.display = 'flex';
-            else if (tipo === 'falta') item.style.display = est.includes('230') ? 'flex' : 'none'; 
-            else if (tipo === 'ok') item.style.display = est.includes('34') ? 'flex' : 'none'; 
+            let estadoItem = item.getAttribute('data-estado');
+            
+            if (tipo === 'todos') {
+                item.style.display = 'flex';
+            } else if (tipo === 'falta') {
+                // Estado 1 significa Planejado / Faltando (Vermelho)
+                item.style.display = estadoItem === '1' ? 'flex' : 'none'; 
+            } else if (tipo === 'ok') {
+                // Estado 2 significa Comprado / OK (Verde)
+                item.style.display = estadoItem === '2' ? 'flex' : 'none'; 
+            }
         });
     }
 
