@@ -6,21 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mondialle Pro - Gestão Inteligente</title>
     <link rel="stylesheet" href="css/lista.css">
-    </head>
+</head>
 
 <body>
 
-
     <div class="topo-fixo">
         <div id="app-header">CARREGANDO...</div>
+        
+        <div class="abas-app">
+            <button class="btn-aba aba-ativa" id="aba-pizzaria" onclick="trocarApp('PIZZARIA')">🍕 Pizzaria</button>
+            <button class="btn-aba" id="aba-bebidas" onclick="trocarApp('BEBIDAS')">🍺 Bebidas</button>
+        </div>
+
         <div id="contador-status">
             <span>Faltam: <b id="num-pendentes">0</b></span>
             <span>Total: <b id="valor-pendentes">R$ 0,00</b></span>
         </div>
         <div class="filtros-status">
-            <button class="btn-f ativo-filtro" onclick="filtrarStatus('todos', this)">Todos</button>
-            <button class="btn-f" onclick="filtrarStatus('falta', this)" style="color:var(--secondary)">Faltando</button>
-            <button class="btn-f" onclick="filtrarStatus('ok', this)" style="color:var(--green)">OK</button>
+            <button class="btn-f ativo-filtro" id="filtro-todos" onclick="filtrarStatus('todos', this)">Todos</button>
+            <button class="btn-f" id="filtro-falta" onclick="filtrarStatus('falta', this)" style="color:var(--secondary)">Faltando</button>
+            <button class="btn-f" id="filtro-ok" onclick="filtrarStatus('ok', this)" style="color:var(--green)">OK</button>
         </div>
         <div class="menu-semana">
             <button class="btn-dia ativo" id="btn-seg" onclick="mudarDia('SEG', this)">Seg</button>
@@ -32,7 +37,9 @@
             <button class="btn-dia" onclick="mudarDia('DOM', this)">Dom</button>
             <button class="btn-dia" style="background:#1e293b; color:white" onclick="mostrarRelatorio(this)">TOTAL</button>
         </div>
+        
         <button class="btn-add-item" onclick="adicionarNovoItem()">+ Adicionar Nova Mercadoria</button>
+        
         <div class="busca-container">
             <input type="text" id="campo-busca" placeholder="🔍 Buscar item..." onkeyup="filtrarItens()">
         </div>
@@ -49,15 +56,7 @@
         </div>
     </div>
 
-    <div class="fab-container">
-        <div class="fab-menu" id="fabMenu">
-            <button class="fab-item" onclick="trocarApp('BEBIDAS')">🍺 Lista Bebidas</button>
-            <button class="fab-item" onclick="trocarApp('PIZZARIA')">🍕 Pizzaria Mondialle</button>
-        </div>
-        <button class="fab-main" onclick="document.getElementById('fabMenu').classList.toggle('show')">🔄</button>
-       
-    </div>
-     <script src="js/lista.js"></script>
-    </body>
+    <script src="js/lista.js"></script>
+</body>
 
 </html>
