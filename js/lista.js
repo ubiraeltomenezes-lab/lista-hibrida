@@ -207,6 +207,39 @@ function filtrarItens() {
 
 function salvar() { localStorage.setItem('db_mondialle_v11_' + appAtivo, JSON.stringify(db)); }
 function trocarApp(novo) { appAtivo = novo; carregarApp(); }
-function finalizarSemana() { if(confirm("Isso apagará todas as marcações da semana. Continuar?")) { localStorage.removeItem('db_mondialle_v11_' + appAtivo); location.reload(); } }
+function finalizarSemana() {
+    // 1. Gera o relatório de texto com os dados atuais
+    let somaGeral = 0;
+    let textoRelatorio = `📊 *FECHAMENTO SEMANAL - MONDIALLE PRO*\n`;
+    textoRelatorio += `----------------------------------------\n`;
+
+    ['SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB', 'DOM'].forEach(d => {
+        let totalDia = (db[d] || []).filter(it => it.estado === 2).reduce((acc, it) => acc + (it.p * it.qtd), 0);
+        somaGeral += totalDia;
+        textoRelatorio += `*${d}:* R$ ${totalDia.toFixed(2).replace('.', ',')}\n`;
+    });
+
+    textoRelatorio += `----------------------------------------\n`;
+    textoRelatorio += `🚀 *TOTAL DA SEMANA:* R$ ${somaGeral.toFixed(2).replace('.', ',')}\n`;
+
+    // 2. Tenta copiar automaticamente para o seu "Control + C"
+    navigator.clipboard.writeText(textoRelatorio).then(() => {
+        // Se a cópia automática funcionar:
+        alert("✅ Relatório copiado automaticamente!\n\nAgora vá na sua Planilha do Google ou WhatsApp, clique em 'Colar' (Ctrl+V) para salvar.");
+        
+        if(confirm("Os dados já estão colados e salvos em outro lugar? Clique em OK para APAGAR a semana e começar uma nova.")) {
+            localStorage.removeItem('db_mondialle_v11_' + appAtivo);
+            location.reload();
+        }
+    }).catch(err => {
+        // Caso o navegador bloqueie a cópia automática (segurança), usaremos um plano B visual
+        alert("Não foi possível copiar automaticamente devido às permissões do navegador. Vamos fazer manualmente.");
+        const conferirVisual = prompt("Copie o texto abaixo manualmente:", textoRelatorio);
+        if (conferirVisual && confirm("Confirmar limpeza da semana?")) {
+            localStorage.removeItem('db_mondialle_v11_' + appAtivo);
+            location.reload();
+        }
+    });
+}
 
 window.onload = carregarApp;
