@@ -208,7 +208,7 @@ function filtrarItens() {
 function salvar() { localStorage.setItem('db_mondialle_v11_' + appAtivo, JSON.stringify(db)); }
 function trocarApp(novo) { appAtivo = novo; carregarApp(); }
 function finalizarSemana() {
-    // 1. Gera o relatório de texto com os dados atuais
+    // 1. Gera o relatório de texto estruturado
     let somaGeral = 0;
     let textoRelatorio = `📊 *FECHAMENTO SEMANAL - MONDIALLE PRO*\n`;
     textoRelatorio += `----------------------------------------\n`;
@@ -222,24 +222,22 @@ function finalizarSemana() {
     textoRelatorio += `----------------------------------------\n`;
     textoRelatorio += `🚀 *TOTAL DA SEMANA:* R$ ${somaGeral.toFixed(2).replace('.', ',')}\n`;
 
-    // 2. Tenta copiar automaticamente para o seu "Control + C"
-    navigator.clipboard.writeText(textoRelatorio).then(() => {
-        // Se a cópia automática funcionar:
-        alert("✅ Relatório copiado automaticamente!\n\nAgora vá na sua Planilha do Google ou WhatsApp, clique em 'Colar' (Ctrl+V) para salvar.");
-        
-        if(confirm("Os dados já estão colados e salvos em outro lugar? Clique em OK para APAGAR a semana e começar uma nova.")) {
-            localStorage.removeItem('db_mondialle_v11_' + appAtivo);
-            location.reload();
-        }
-    }).catch(err => {
-        // Caso o navegador bloqueie a cópia automática (segurança), usaremos um plano B visual
-        alert("Não foi possível copiar automaticamente devido às permissões do navegador. Vamos fazer manualmente.");
-        const conferirVisual = prompt("Copie o texto abaixo manualmente:", textoRelatorio);
-        if (conferirVisual && confirm("Confirmar limpeza da semana?")) {
-            localStorage.removeItem('db_mondialle_v11_' + appAtivo);
-            location.reload();
-        }
-    });
+    // 2. Cria o link direto para o WhatsApp com o número e o texto codificado
+    const numeroTelefone = "5513997446989"; // Código do Brasil (55) + DDD (13) + Número
+    const textoCodificado = encodeURIComponent(textoRelatorio);
+    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroTelefone}&text=${textoCodificado}`;
+
+    // 3. Alerta o usuário e abre o WhatsApp para envio
+    alert("O sistema vai abrir o WhatsApp para enviar o relatório para o número cadastrado.");
+    
+    // Abre o WhatsApp em uma nova aba/janela
+    window.open(urlWhatsApp, '_blank');
+
+    // 4. Confirma se a mensagem foi enviada antes de apagar os dados locais
+    if(confirm("Você enviou o relatório com sucesso no WhatsApp? \n\nClique em OK apenas se a mensagem foi enviada para APAGAR a semana e começar uma nova.")) {
+        localStorage.removeItem('db_mondialle_v11_' + appAtivo);
+        location.reload();
+    }
 }
 
 window.onload = carregarApp;
