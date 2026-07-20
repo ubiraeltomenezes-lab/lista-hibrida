@@ -203,41 +203,21 @@ function filtrarItens() {
             item.style.display = 'none';
         }
     });
+}// Adi
+function trocarApp(novoApp) {
+    appAtivo = novoApp;
+    carregarApp();
+}
+function salvar() {
+    localStorage.setItem('db_mondialle_v11_' + appAtivo, JSON.stringify(db));
 }
 
-function salvar() { localStorage.setItem('db_mondialle_v11_' + appAtivo, JSON.stringify(db)); }
-function trocarApp(novo) { appAtivo = novo; carregarApp(); }
+// Substitua a antiga limparSemana por esta:
 function finalizarSemana() {
-    // 1. Gera o relatório de texto estruturado
-    let somaGeral = 0;
-    let textoRelatorio = `📊 *FECHAMENTO SEMANAL - MONDIALLE PRO*\n`;
-    textoRelatorio += `----------------------------------------\n`;
-
-    ['SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SAB', 'DOM'].forEach(d => {
-        let totalDia = (db[d] || []).filter(it => it.estado === 2).reduce((acc, it) => acc + (it.p * it.qtd), 0);
-        somaGeral += totalDia;
-        textoRelatorio += `*${d}:* R$ ${totalDia.toFixed(2).replace('.', ',')}\n`;
-    });
-
-    textoRelatorio += `----------------------------------------\n`;
-    textoRelatorio += `🚀 *TOTAL DA SEMANA:* R$ ${somaGeral.toFixed(2).replace('.', ',')}\n`;
-
-    // 2. Cria o link direto para o WhatsApp com o número e o texto codificado
-    const numeroTelefone = "5513997446989"; // Código do Brasil (55) + DDD (13) + Número
-    const textoCodificado = encodeURIComponent(textoRelatorio);
-    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroTelefone}&text=${textoCodificado}`;
-
-    // 3. Alerta o usuário e abre o WhatsApp para envio
-    alert("O sistema vai abrir o WhatsApp para enviar o relatório para o número cadastrado.");
-    
-    // Abre o WhatsApp em uma nova aba/janela
-    window.open(urlWhatsApp, '_blank');
-
-    // 4. Confirma se a mensagem foi enviada antes de apagar os dados locais
-    if(confirm("Você enviou o relatório com sucesso no WhatsApp? \n\nClique em OK apenas se a mensagem foi enviada para APAGAR a semana e começar uma nova.")) {
+    if (confirm("Tem certeza que deseja limpar os dados da semana atual?")) {
         localStorage.removeItem('db_mondialle_v11_' + appAtivo);
-        location.reload();
+        db = {};
+        carregarApp();
     }
 }
-
 window.onload = carregarApp;
